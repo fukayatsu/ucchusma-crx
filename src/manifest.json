@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "ucchusma",
+  "version": "0.0.1",
+  "permissions": [
+    "https://ucchusma.herokuapp.com/*"
+  ],
+  "background": {
+    "scripts": [
+      "js/jquery-2.0.3.min.js",
+      "js/moment.min.js",
+      "js/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "img/unlock_128.png",
+    "default_title": "status: unknown"
+  },
+  "icons": {
+    "48": "img/unlock_48.png",
+    "128": "img/unlock_128.png"
+  }
+}
