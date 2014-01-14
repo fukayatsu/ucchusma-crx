@@ -27,5 +27,5 @@ chrome.browserAction.onClicked.addListener(function(tab){
 
 $(function() {
   setStatus();
-  setInterval(setStatus, 60 * 1000);
+  setInterval(setStatus, 30 * 1000);
 });
