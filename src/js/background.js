@@ -1,7 +1,3 @@
-// chrome.browserAction.onClicked.addListener(function(tab){
-//   chrome.tabs.create({"url": "https://ucchusma.herokuapp.com/"});
-// });
-
 var setStatus = function() {
   $.ajax({
     url: "https://ucchusma.herokuapp.com/api/v1/rooms/1.json",
@@ -23,6 +19,11 @@ var setStatus = function() {
     }
   });
 };
+
+chrome.browserAction.onClicked.addListener(function(tab){
+  // chrome.tabs.create({"url": "https://ucchusma.herokuapp.com/"});
+  setStatus();
+});
 
 $(function() {
   setStatus();
