@@ -5,17 +5,20 @@ var imgPaths = {
 };
 
 var setStatus = function() {
-  // chrome.browserAction.setIcon({path: imgPaths['unknown']});
-  // chrome.browserAction.setTitle({title: "checking status..."});
-
   $.ajax({
     url: "https://ucchusma.herokuapp.com/api/v1/rooms/1.json",
     success: function(res) {
-      var imgPath = imgPaths[res.status];
-      var dateStr = moment(res.created_at).format("YYYY-MM-DD HH:mm:ss");
+      var createdAt = moment(res.created_at);
+      var dateStr   = createdAt.format("YYYY-MM-DD HH:mm:ss");
 
-      chrome.browserAction.setIcon({path: imgPath});
-      chrome.browserAction.setTitle({title: 'checked at ' + dateStr});
+      if ((Date.now() - createdAt) / (1000 * 60) > 10) {
+        // 最終更新から10分以上経過
+        chrome.browserAction.setIcon({path: imgPaths['unknown']});
+        chrome.browserAction.setTitle({title: 'api is down?  fchecked at ' + dateStr});
+      } else {
+        chrome.browserAction.setIcon({path: imgPaths[res.status]});
+        chrome.browserAction.setTitle({title: 'checked at ' + dateStr});
+      }
     },
     error: function(xhr, status, error) {
       chrome.browserAction.setIcon({path: imgPaths['unknown']});
@@ -26,6 +29,8 @@ var setStatus = function() {
 
 chrome.browserAction.onClicked.addListener(function(tab){
   // chrome.tabs.create({"url": "https://ucchusma.herokuapp.com/"});
+  chrome.browserAction.setIcon({path: imgPaths['unknown']});
+  chrome.browserAction.setTitle({title: "checking status..."});
   setStatus();
 });
 
