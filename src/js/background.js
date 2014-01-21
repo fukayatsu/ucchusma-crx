@@ -8,10 +8,10 @@ var setStatus = function() {
   $.ajax({
     url: "https://ucchusma.herokuapp.com/api/v1/rooms/1.json",
     success: function(res) {
-      var createdAt = moment(res.created_at);
-      var dateStr   = createdAt.format("YYYY-MM-DD HH:mm:ss");
+      var updatedAt = moment(res.updated_at);
+      var dateStr   = updatedAt.format("YYYY-MM-DD HH:mm:ss");
 
-      if ((Date.now() - createdAt) / (1000 * 60) > 10) {
+      if ((Date.now() - updatedAt) / (1000 * 60) > 10) {
         // 最終更新から10分以上経過
         chrome.browserAction.setIcon({path: imgPaths['unknown']});
         chrome.browserAction.setTitle({title: 'api is down?  fchecked at ' + dateStr});
